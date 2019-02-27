@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LinearCongruentialGenerator
 {
     class Program
     {
-        const int ValuesCount = 10;
+        const int ValuesCount = 100;
         static void Main(string[] args)
         {
             var generator = new Generator();
-            for (int i = 0; i < ValuesCount; ++i) {
-                Console.WriteLine("{0},", generator.GetValue());
+            var values = new List<int>(ValuesCount);
+            while (values.Count < ValuesCount) {
+                values.Add(generator.GenerateValue());
             }
+            WriteSequence(values);
         }
+
+        static void WriteSequence(IEnumerable<int> values) {
+            var stringValues = String.Join(",\n", values);
+            // Console.WriteLine(stringValues);
+            System.IO.File.WriteAllText("./values.txt", stringValues);
+        }
+
     }
 }
