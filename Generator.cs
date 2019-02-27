@@ -21,7 +21,7 @@ namespace LinearCongruentialGenerator
             this.lastValue = seed;
         }
 
-        public int GetValue() {
+        public int GenerateValue() {
             this.lastValue = (AValue * this.lastValue + CValue) % MValue;
             return this.lastValue;
         }
