@@ -6,9 +6,9 @@ namespace LinearCongruentialGenerator
     {
         private static readonly DateTime EpochBegin =
             new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        private const int AValue = 42;
-        private const int CValue = 0;
-        private const int MValue = System.Int32.MaxValue;
+        private const int Coefficient = 3;
+        private const int Offset = 0;
+        private const int Module = System.Int32.MaxValue;
 
         private int lastValue;
 
@@ -22,7 +22,7 @@ namespace LinearCongruentialGenerator
         }
 
         public int GenerateValue() {
-            this.lastValue = (AValue * this.lastValue + CValue) % MValue;
+            this.lastValue = (int)(((long)Coefficient * this.lastValue + Offset) % Module);
             return this.lastValue;
         }
     }
