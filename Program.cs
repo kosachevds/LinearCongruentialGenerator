@@ -10,13 +10,15 @@ namespace LinearCongruentialGenerator
         const int ValuesCount = 1_000_000;
         static void Main(string[] args)
         {
-            ValuesAnalyze();
+            // AnalyzeGenerator(new Generator());
+            AnalyzeGenerator(new MaskGenerator(0xFF));
         }
 
-        static void ValuesAnalyze() {
-            var generator = new Generator();
+        static void AnalyzeGenerator(Generator generator) {
             Console.WriteLine("Generating...");
-            var values = Enumerable.Range(0, ValuesCount).Select(_ => generator.GenerateValue()).ToList();
+            var values = Enumerable.Range(0, ValuesCount)
+                .Select(_ => generator.GenerateValue())
+                .ToList();
             WriteSequence(values);
             Console.WriteLine("Period = ");
             Console.WriteLine("{0}", GetPeriodSize(generator));
