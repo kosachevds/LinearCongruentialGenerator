@@ -34,16 +34,6 @@ namespace LinearCongruentialGenerator
             }
         }
 
-        static int GetPeriodSize(List<int> values) {
-            for (int i = 0; i < values.Count; ++i) {
-                var nextSameItemIndex = values.IndexOf(values[i], i + 1);
-                if (nextSameItemIndex != -1) {
-                    return nextSameItemIndex - i;
-                }
-            }
-            return 0;
-        }
-
         static ulong GetPeriodSize(Generator generator) {
             var firstValue = generator.GenerateValue();
             ulong periodSize = 1;
