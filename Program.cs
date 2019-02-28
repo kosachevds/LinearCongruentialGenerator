@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LinearCongruentialGenerator
 {
     class Program
     {
-        const int ValuesCount = 10000;
+        const string OutPath = "./values.txt";
+        const int ValuesCount = 100_000_000;
         static void Main(string[] args)
         {
             var generator = new Generator();
@@ -14,19 +16,31 @@ namespace LinearCongruentialGenerator
                 values.Add(generator.GenerateValue());
             }
             WriteSequence(values);
-            Console.WriteLine("Done! Period = {0}", GetPeriodSize(values));
+            Console.Write("Period = ");
+            Console.WriteLine("{0}", GetPeriodSize(values));
         }
 
+        // TODO: async
         static void WriteSequence(IEnumerable<int> values) {
-            var stringValues = String.Join(",\n", values);
+            Console.WriteLine("Writing...");
+            if (values.Count() > 1e6) {
+                System.IO.File.WriteAllLines(OutPath, values.Select(x => x.ToString() + ","));
+            } else {
+                var stringValues = String.Join(",\n", values);
+                System.IO.File.WriteAllText(OutPath, stringValues);
+            }
+
             // Console.WriteLine(stringValues);
-            System.IO.File.WriteAllText("./values.txt", stringValues);
         }
 
         static int GetPeriodSize(List<int> values) {
-            var firstIndex = 0;
-            var nextSameItemIndex = values.IndexOf(values[firstIndex], firstIndex + 1);
-            return nextSameItemIndex - firstIndex;
+            for (int i = 0; i < values.Count; ++i) {
+                var nextSameItemIndex = values.IndexOf(values[i], i + 1);
+                if (nextSameItemIndex != -1) {
+                    return nextSameItemIndex - i;
+                }
+            }
+            return 0;
         }
     }
 }
