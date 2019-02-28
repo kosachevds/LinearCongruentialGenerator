@@ -25,7 +25,7 @@ namespace LinearCongruentialGenerator
             this.lastValue = seed;
         }
 
-        public int GenerateValue() {
+        public virtual int GenerateValue() {
             this.lastValue = (int)(((long)Coefficient * this.lastValue + Offset) % Module);
             return this.lastValue;
         }
