@@ -5,7 +5,7 @@ namespace LinearCongruentialGenerator
 {
     class Program
     {
-        const int ValuesCount = 100;
+        const int ValuesCount = 10000;
         static void Main(string[] args)
         {
             var generator = new Generator();
@@ -14,6 +14,7 @@ namespace LinearCongruentialGenerator
                 values.Add(generator.GenerateValue());
             }
             WriteSequence(values);
+            Console.WriteLine("Done!");
         }
 
         static void WriteSequence(IEnumerable<int> values) {
