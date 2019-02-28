@@ -10,12 +10,16 @@ namespace LinearCongruentialGenerator
         const int ValuesCount = 1_000_000;
         static void Main(string[] args)
         {
+            ValuesAnalyze();
+        }
+
+        static void ValuesAnalyze() {
             var generator = new Generator();
             Console.WriteLine("Generating...");
             var values = Enumerable.Range(0, ValuesCount).Select(_ => generator.GenerateValue()).ToList();
+            WriteSequence(values);
             Console.WriteLine("Period = ");
-            Console.WriteLine("{0}", GetPeriodSize(values));
-
+            Console.WriteLine("{0}", GetPeriodSize(generator));
         }
 
         // TODO: async
@@ -38,6 +42,19 @@ namespace LinearCongruentialGenerator
                 }
             }
             return 0;
+        }
+
+        static ulong GetPeriodSize(Generator generator) {
+            var firstValue = generator.GenerateValue();
+            ulong periodSize = 1;
+            while (generator.GenerateValue() != firstValue) {
+                try {
+                    periodSize = checked(periodSize + 1);
+                } catch (OverflowException) {
+                    return 0;
+                }
+            }
+            return periodSize;
         }
     }
 }
