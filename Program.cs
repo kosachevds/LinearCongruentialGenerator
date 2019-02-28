@@ -14,7 +14,7 @@ namespace LinearCongruentialGenerator
                 values.Add(generator.GenerateValue());
             }
             WriteSequence(values);
-            Console.WriteLine("Done!");
+            Console.WriteLine("Done! Period = {0}", GetPeriodSize(values));
         }
 
         static void WriteSequence(IEnumerable<int> values) {
@@ -23,5 +23,10 @@ namespace LinearCongruentialGenerator
             System.IO.File.WriteAllText("./values.txt", stringValues);
         }
 
+        static int GetPeriodSize(List<int> values) {
+            var firstIndex = 0;
+            var nextSameItemIndex = values.IndexOf(values[firstIndex], firstIndex + 1);
+            return nextSameItemIndex - firstIndex;
+        }
     }
 }
