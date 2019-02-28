@@ -7,17 +7,14 @@ namespace LinearCongruentialGenerator
     class Program
     {
         const string OutPath = "./values.txt";
-        const int ValuesCount = 100_000_000;
+        const int ValuesCount = 1_000_000;
         static void Main(string[] args)
         {
             var generator = new Generator();
-            var values = new List<int>(ValuesCount);
-            while (values.Count < ValuesCount) {
-                values.Add(generator.GenerateValue());
-            }
-            WriteSequence(values);
-            Console.Write("Period = ");
+            var values = Enumerable.Range(0, ValuesCount).Select(_ => generator.GenerateValue()).ToList();
+            Console.WriteLine("Period = ");
             Console.WriteLine("{0}", GetPeriodSize(values));
+
         }
 
         // TODO: async
@@ -25,12 +22,11 @@ namespace LinearCongruentialGenerator
             Console.WriteLine("Writing...");
             if (values.Count() > 1e6) {
                 System.IO.File.WriteAllLines(OutPath, values.Select(x => x.ToString() + ","));
+                // Console.WriteLine(stringValues);
             } else {
                 var stringValues = String.Join(",\n", values);
                 System.IO.File.WriteAllText(OutPath, stringValues);
             }
-
-            // Console.WriteLine(stringValues);
         }
 
         static int GetPeriodSize(List<int> values) {
