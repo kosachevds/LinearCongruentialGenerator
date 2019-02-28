@@ -1,6 +1,7 @@
 from os import path
 from matplotlib import pyplot as pp
 
+
 def main():
     current_dir = path.dirname(__file__)
     values_filename = path.join(current_dir, "values.txt")
