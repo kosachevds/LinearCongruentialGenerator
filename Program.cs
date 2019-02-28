@@ -11,6 +11,7 @@ namespace LinearCongruentialGenerator
         static void Main(string[] args)
         {
             var generator = new Generator();
+            Console.WriteLine("Generating...");
             var values = Enumerable.Range(0, ValuesCount).Select(_ => generator.GenerateValue()).ToList();
             Console.WriteLine("Period = ");
             Console.WriteLine("{0}", GetPeriodSize(values));
