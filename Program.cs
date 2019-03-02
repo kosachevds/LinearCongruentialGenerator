@@ -10,8 +10,8 @@ namespace LinearCongruentialGenerator
         const int ValuesCount = 1_000_000;
         static void Main(string[] args)
         {
-            // AnalyzeGenerator(new Generator());
-            AnalyzeGenerator(new MaskGenerator(0xFF));
+            AnalyzeGenerator(new Generator());
+            // AnalyzeGenerator(new MaskGenerator(0xFF));
         }
 
         static void AnalyzeGenerator(Generator generator) {
@@ -19,20 +19,19 @@ namespace LinearCongruentialGenerator
             var values = Enumerable.Range(0, ValuesCount)
                 .Select(_ => generator.GenerateValue())
                 .ToList();
-            WriteSequence(values);
+            WriteSequenceAsync(values);
             Console.WriteLine("Period = ");
             Console.WriteLine("{0}", GetPeriodSize(generator));
         }
 
-        // TODO: async
-        static void WriteSequence(IEnumerable<int> values) {
+        static async void WriteSequenceAsync(IEnumerable<int> values) {
             Console.WriteLine("Writing...");
             if (values.Count() > 1e6) {
-                System.IO.File.WriteAllLines(OutPath, values.Select(x => x.ToString() + ","));
+                await System.IO.File.WriteAllLinesAsync(OutPath, values.Select(x => x.ToString() + ","));
                 // Console.WriteLine(stringValues);
             } else {
                 var stringValues = String.Join(",\n", values);
-                System.IO.File.WriteAllText(OutPath, stringValues);
+                await System.IO.File.WriteAllTextAsync(OutPath, stringValues);
             }
         }
 
