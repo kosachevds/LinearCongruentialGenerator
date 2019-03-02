@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RandomVariablesModeling
 {
@@ -13,7 +14,7 @@ namespace RandomVariablesModeling
             // AnalyzeGenerator(new Generator());
             // AnalyzeGenerator(new MaskGenerator(0xFF));
 
-            WriteSequenceAsync(new RandomSequenceGenerator(0, 1).GenerateSequence(10000));
+            WriteSequenceAsync(new RandomSequenceGenerator(0, 1).GenerateSequence(10000)).Wait();
         }
 
         static void AnalyzeGenerator(Generator generator) {
@@ -21,12 +22,13 @@ namespace RandomVariablesModeling
             var values = Enumerable.Range(0, ValuesCount)
                 .Select(_ => generator.GenerateValue())
                 .ToList();
-            WriteSequenceAsync(values);
+            var writingTask = WriteSequenceAsync(values);
             Console.WriteLine("Period = ");
             Console.WriteLine("{0}", GetPeriodSize(generator));
+            writingTask.Wait();
         }
 
-        static async void WriteSequenceAsync<TValue>(IEnumerable<TValue> values) {
+        static async Task WriteSequenceAsync<TValue>(IEnumerable<TValue> values) {
             Console.WriteLine("Writing...");
             if (values.Count() > 1e6) {
                 await System.IO.File.WriteAllLinesAsync(OutPath, values.Select(x => x.ToString() + ";"));
