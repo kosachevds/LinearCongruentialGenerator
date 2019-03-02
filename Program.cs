@@ -29,10 +29,10 @@ namespace RandomVariablesModeling
         static async void WriteSequenceAsync<TValue>(IEnumerable<TValue> values) {
             Console.WriteLine("Writing...");
             if (values.Count() > 1e6) {
-                await System.IO.File.WriteAllLinesAsync(OutPath, values.Select(x => x.ToString() + ","));
+                await System.IO.File.WriteAllLinesAsync(OutPath, values.Select(x => x.ToString() + ";"));
                 // Console.WriteLine(stringValues);
             } else {
-                var stringValues = String.Join(",\n", values);
+                var stringValues = String.Join(";\n", values);
                 await System.IO.File.WriteAllTextAsync(OutPath, stringValues);
             }
         }
