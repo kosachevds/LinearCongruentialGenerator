@@ -15,6 +15,8 @@ namespace RandomVariablesModeling
             // AnalyzeGenerator(new MaskGenerator(0xFF));
 
             WriteSequenceAsync(new RandomSequenceGenerator(0, 1).GenerateSequence(10000)).Wait();
+
+            Console.WriteLine("Done!");
         }
 
         static void AnalyzeGenerator(Generator generator) {
