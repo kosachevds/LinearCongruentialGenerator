@@ -8,9 +8,9 @@ namespace RandomVariablesModeling
         private double lower;
         private double upper;
 
-        public RandomSequenceGenerator(double lower, double upper) {
-            this.lower = lower;
-            this.upper = upper;
+        public RandomSequenceGenerator() {
+            this.lower = 0.0;
+            this.upper = 1.0;
         }
 
         public virtual IEnumerable<double> GenerateSequence(int size) {
