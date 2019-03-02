@@ -10,7 +10,7 @@ namespace LinearCongruentialGenerator
         // Module = Int32.MaxValue
         private static readonly DateTime EpochBegin =
             new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        private const int Coefficient = 3;
+        private const int Coefficient = 7;
         private const int Offset = 0;
         private const int Module = System.Int32.MaxValue;
 
