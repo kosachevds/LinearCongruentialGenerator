@@ -1,6 +1,6 @@
 using System;
 
-namespace LinearCongruentialGenerator
+namespace RandomVariablesModeling
 {
     class Generator
     {

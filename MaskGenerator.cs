@@ -1,4 +1,4 @@
-namespace LinearCongruentialGenerator
+namespace RandomVariablesModeling
 {
     class MaskGenerator : Generator {
         private uint bitsMask;

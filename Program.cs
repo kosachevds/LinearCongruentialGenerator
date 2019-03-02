@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LinearCongruentialGenerator
+namespace RandomVariablesModeling
 {
     class Program
     {
