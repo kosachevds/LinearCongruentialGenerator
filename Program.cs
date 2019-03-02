@@ -11,7 +11,7 @@ namespace RandomVariablesModeling
         const int ValuesCount = 1_000_000;
         static void Main(string[] args)
         {
-            SetDecimalSeparatorDot();
+            SetInvariantCulture();
             // AnalyzeGenerator(new Generator());
             // AnalyzeGenerator(new MaskGenerator(0xFF));
 
@@ -20,12 +20,9 @@ namespace RandomVariablesModeling
             Console.WriteLine("Done!");
         }
 
-        static void SetDecimalSeparatorDot() {
-            System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat =
-                new System.Globalization.NumberFormatInfo
-                {
-                    CurrencyDecimalSeparator = "."
-                };
+        static void SetInvariantCulture() {
+            System.Threading.Thread.CurrentThread.CurrentCulture =
+                System.Globalization.CultureInfo.InvariantCulture;
         }
 
         static void AnalyzeGenerator(Generator generator) {
