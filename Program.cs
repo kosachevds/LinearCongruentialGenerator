@@ -11,12 +11,21 @@ namespace RandomVariablesModeling
         const int ValuesCount = 1_000_000;
         static void Main(string[] args)
         {
+            SetDecimalSeparatorDot();
             // AnalyzeGenerator(new Generator());
             // AnalyzeGenerator(new MaskGenerator(0xFF));
 
             WriteSequenceAsync(new RandomSequenceGenerator(0, 1).GenerateSequence(10000)).Wait();
 
             Console.WriteLine("Done!");
+        }
+
+        static void SetDecimalSeparatorDot() {
+            System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat =
+                new System.Globalization.NumberFormatInfo
+                {
+                    CurrencyDecimalSeparator = "."
+                };
         }
 
         static void AnalyzeGenerator(Generator generator) {
