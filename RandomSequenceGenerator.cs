@@ -8,7 +8,7 @@ namespace RandomVariablesModeling
         private double lower;
         private double upper;
 
-        RandomSequenceGenerator(double lower, double upper) {
+        public RandomSequenceGenerator(double lower, double upper) {
             this.lower = lower;
             this.upper = upper;
         }
