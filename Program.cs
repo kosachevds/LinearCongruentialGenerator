@@ -10,8 +10,10 @@ namespace RandomVariablesModeling
         const int ValuesCount = 1_000_000;
         static void Main(string[] args)
         {
-            AnalyzeGenerator(new Generator());
+            // AnalyzeGenerator(new Generator());
             // AnalyzeGenerator(new MaskGenerator(0xFF));
+
+            WriteSequenceAsync(new RandomSequenceGenerator(0, 1).GenerateSequence(10000));
         }
 
         static void AnalyzeGenerator(Generator generator) {
@@ -24,7 +26,7 @@ namespace RandomVariablesModeling
             Console.WriteLine("{0}", GetPeriodSize(generator));
         }
 
-        static async void WriteSequenceAsync(IEnumerable<int> values) {
+        static async void WriteSequenceAsync<TValue>(IEnumerable<TValue> values) {
             Console.WriteLine("Writing...");
             if (values.Count() > 1e6) {
                 await System.IO.File.WriteAllLinesAsync(OutPath, values.Select(x => x.ToString() + ","));
