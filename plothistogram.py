@@ -9,7 +9,7 @@ def main():
     with open(values_filename, "rt") as values_file:
         values_text = values_file.read()
     print("Converting...")
-    values = [int(chunk) for chunk in values_text.split(";")
+    values = [float(chunk) for chunk in values_text.split(";")
               if chunk and chunk != "\n"]
     print("Plotting...")
     pp.hist(x=values)
