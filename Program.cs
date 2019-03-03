@@ -8,7 +8,9 @@ namespace RandomVariablesModeling
     class Program
     {
         const string OutPath = "./values.txt";
-        const int ValuesCount = 1_000_000;
+        const int UniformValuesCount = 1_000_000;
+        const int NormalValuesCount = 10000;
+        const int AddendCount = 12;
         static void Main(string[] args)
         {
             SetInvariantCulture();
@@ -16,27 +18,10 @@ namespace RandomVariablesModeling
             // AnalyzeGenerator(new Generator());
             // AnalyzeGenerator(new MaskGenerator(0xFF));
 
-            // SumRandomVariables();
-            BoxMullerRandomVariables();
+            // NormalDistributionAnalyze(new SumVariablesGenerator(AddendCount));
+            NormalDistributionAnalyze(new BoxMullerGenerator());
 
             Console.WriteLine("Done!");
-        }
-
-        static void BoxMullerRandomVariables() {
-            const int SequenceSize = 10000;
-            var generator = new BoxMullerGenerator();
-            Console.WriteLine("Generating...");
-            var sequence = Enumerable.Range(0, SequenceSize).Select(_ => generator.GenerateValue());
-            WriteSequenceAsync(sequence).Wait();
-        }
-
-        static void SumRandomVariables() {
-            const int SequenceSize = 10000;
-            const int AddendCount = 12;
-            var generator = new SumVariablesGenerator(AddendCount);
-            Console.WriteLine("Generating...");
-            var sequence = Enumerable.Range(0, SequenceSize).Select(_ => generator.GenerateValue());
-            WriteSequenceAsync(sequence).Wait();
         }
 
         static void SetInvariantCulture() {
@@ -44,11 +29,15 @@ namespace RandomVariablesModeling
                 System.Globalization.CultureInfo.InvariantCulture;
         }
 
+        static void NormalDistributionAnalyze<TValue>(IRandomGenerator<TValue> generator) {
+            Console.WriteLine("Generating...");
+            var sequence = GenerateSequence(generator, NormalValuesCount);
+            WriteSequenceAsync(sequence).Wait();
+        }
+
         static void AnalyzeGenerator(LinearCongruentialGenerator generator) {
             Console.WriteLine("Generating...");
-            var values = Enumerable.Range(0, ValuesCount)
-                .Select(_ => generator.GenerateValue())
-                .ToList();
+            var values = GenerateSequence(generator, UniformValuesCount);
             var writingTask = WriteSequenceAsync(values);
             Console.WriteLine("Period = ");
             Console.WriteLine("{0}", GetPeriodSize(generator));
@@ -77,6 +66,10 @@ namespace RandomVariablesModeling
                 }
             }
             return periodSize;
+        }
+
+        static IEnumerable<TValue> GenerateSequence<TValue>(IRandomGenerator<TValue> generator, int count) {
+            return Enumerable.Range(0, count).Select(_ => generator.GenerateValue());
         }
     }
 }
