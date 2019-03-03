@@ -16,9 +16,18 @@ namespace RandomVariablesModeling
             // AnalyzeGenerator(new Generator());
             // AnalyzeGenerator(new MaskGenerator(0xFF));
 
-            SumRandomVariables();
+            // SumRandomVariables();
+            BoxMullerRandomVariables();
 
             Console.WriteLine("Done!");
+        }
+
+        static void BoxMullerRandomVariables() {
+            const int SequenceSize = 10000;
+            var generator = new BoxMullerGenerator();
+            Console.WriteLine("Generating...");
+            var sequence = Enumerable.Range(0, SequenceSize).Select(_ => generator.GenerateValue());
+            WriteSequenceAsync(sequence).Wait();
         }
 
         static void SumRandomVariables() {
