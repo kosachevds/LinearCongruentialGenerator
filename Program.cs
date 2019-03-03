@@ -22,22 +22,12 @@ namespace RandomVariablesModeling
         }
 
         static void SumRandomVariables() {
-            const int SequenceSize = 1000;
-            const int SequencesCount = 12;
-            List<double> sequencesSum = null;
-            var generator = new RandomSequenceGenerator();
+            const int SequenceSize = 10000;
+            const int AddendCount = 12;
+            var generator = new SumVariablesGenerator(AddendCount);
             Console.WriteLine("Generating...");
-            for (int i = 0; i < SequencesCount; ++i) {
-                var newSequence = generator.GenerateSequence(SequenceSize);
-                if (sequencesSum == null) {
-                    sequencesSum = newSequence.ToList();
-                } else {
-                    sequencesSum = newSequence
-                        .Select((item, index) => item + sequencesSum[index])
-                        .ToList();
-                }
-            }
-            WriteSequenceAsync(sequencesSum).Wait();
+            var sequence = Enumerable.Range(0, SequenceSize).Select(_ => generator.GenerateValue());
+            WriteSequenceAsync(sequence).Wait();
         }
 
         static void SetInvariantCulture() {
