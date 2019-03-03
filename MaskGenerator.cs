@@ -1,6 +1,6 @@
 namespace RandomVariablesModeling
 {
-    class MaskGenerator : Generator {
+    class MaskGenerator : LinearCongruentialGenerator {
         private uint bitsMask;
 
         public MaskGenerator(uint bitsMask) : base() {

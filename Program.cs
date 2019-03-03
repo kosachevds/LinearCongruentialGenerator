@@ -44,7 +44,7 @@ namespace RandomVariablesModeling
                 System.Globalization.CultureInfo.InvariantCulture;
         }
 
-        static void AnalyzeGenerator(Generator generator) {
+        static void AnalyzeGenerator(LinearCongruentialGenerator generator) {
             Console.WriteLine("Generating...");
             var values = Enumerable.Range(0, ValuesCount)
                 .Select(_ => generator.GenerateValue())
@@ -66,7 +66,7 @@ namespace RandomVariablesModeling
             }
         }
 
-        static ulong GetPeriodSize(Generator generator) {
+        static ulong GetPeriodSize(LinearCongruentialGenerator generator) {
             var firstValue = generator.GenerateValue();
             ulong periodSize = 1;
             while (generator.GenerateValue() != firstValue) {

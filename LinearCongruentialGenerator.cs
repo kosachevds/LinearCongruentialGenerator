@@ -2,7 +2,7 @@ using System;
 
 namespace RandomVariablesModeling
 {
-    class Generator
+    class LinearCongruentialGenerator
     {
         // Good parameters:
         // Coefficient = 7  // Max Possible period (Module, MaxInt)
@@ -16,12 +16,12 @@ namespace RandomVariablesModeling
 
         private int lastValue;
 
-        public Generator() {
+        public LinearCongruentialGenerator() {
             var timeSinceEpoch = System.DateTime.UtcNow.Subtract(EpochBegin);
             this.lastValue = (int)timeSinceEpoch.TotalSeconds;
         }
 
-        public Generator(int seed) {
+        public LinearCongruentialGenerator(int seed) {
             this.lastValue = seed;
         }
 
