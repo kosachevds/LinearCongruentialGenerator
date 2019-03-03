@@ -2,7 +2,8 @@ using System;
 
 namespace RandomVariablesModeling
 {
-    class SumVariablesGenerator {
+    class SumVariablesGenerator : IRandomGenerator<double>
+    {
         private static readonly Random UniformRandom = new Random();
         private const double UniformMean = (1.0 + 0.0) / 2;
         private static readonly double UniformStd = (1.0 - 0.0) / Math.Sqrt(12.0);

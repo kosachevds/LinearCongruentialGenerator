@@ -2,7 +2,7 @@ using System;
 
 namespace RandomVariablesModeling
 {
-    class LinearCongruentialGenerator
+    class LinearCongruentialGenerator : IRandomGenerator<int>
     {
         // Good parameters:
         // Coefficient = 7  // Max Possible period (Module, MaxInt)

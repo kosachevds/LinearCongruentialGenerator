@@ -2,7 +2,7 @@ using System;
 
 namespace RandomVariablesModeling
 {
-    class BoxMullerGenerator
+    class BoxMullerGenerator : IRandomGenerator<double>
     {
         private const double UniformMin = -1.0;
         private const double UniformMax = 1.0;
