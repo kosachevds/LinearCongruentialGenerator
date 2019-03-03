@@ -12,7 +12,7 @@ def main():
     values = [float(chunk) for chunk in values_text.split(";")
               if chunk and chunk != "\n"]
     print("Plotting...")
-    pp.hist(x=values)
+    pp.hist(x=values, bins=100)
     pp.show()
 
 
