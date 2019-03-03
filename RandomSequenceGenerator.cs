@@ -8,6 +8,10 @@ namespace RandomVariablesModeling
         private double lower;
         private double upper;
 
+        public double Mean => (lower + upper) / 2.0;
+
+        public double Std => System.Math.Sqrt((upper - lower) / 12.0);
+
         public RandomSequenceGenerator() {
             this.lower = 0.0;
             this.upper = 1.0;
